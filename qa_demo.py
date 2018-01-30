@@ -1,6 +1,7 @@
+import os
 import csv
 import sqlite3
-from flask import Flask, g
+from flask import Flask, g, url_for
 from flask import request
 from flask import render_template
 
@@ -9,7 +10,23 @@ from qa_model.qa_api import myQAModel
 qaModel = myQAModel()
 
 app = Flask(__name__)
-SQLITE_DB_PATH = 'test2.db'
+
+# to avoid cache problem
+@app.context_processor
+def override_url_for():
+    return dict(url_for=dated_url_for)
+
+def dated_url_for(endpoint, **values):
+    if endpoint == 'static':
+        filename = values.get('filename', None)
+        if filename:
+            file_path = os.path.join(app.root_path,
+                                     endpoint, filename)
+            values['q'] = int(os.stat(file_path).st_mtime)
+    return url_for(endpoint, **values)
+
+
+SQLITE_DB_PATH = 'qa_db.db'
 SQLITE_DB_SCHEMA = 'create_db.sql'
 
 def get_db():
@@ -47,13 +64,12 @@ def ask():
     db = get_db()
 
     # Update query history
-    # with db:
-    #     db.execute('INSERT INTO query_histories(context, question, answer_start, answer_end) VALUES (?,?,?,?)',
-    #     (context, question, ))
+    with db:
+        db.execute('INSERT INTO query_histories(context, question, answer_start, answer_end) VALUES (?,?,?,?)',
+        (context, question, int(Y_str[0]), int(Y_end[0])))
 
     return 'Answer is: %s' % answers[0]
 
 
 if __name__ == '__main__':
-
     app.run(debug=True)
