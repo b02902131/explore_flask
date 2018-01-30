@@ -73,6 +73,12 @@ def ask():
     # return 'Answer is: %s' % answers[0]
     return json.dumps({'start_idx':int(Y_str[0]), 'end_idx':int(Y_end[0])})
 
+@app.route('/valid', methods=['POST', 'GET'])
+def valid():
+    if request.method == 'POST':
+        question_id = request.form['question_id']
+        valid = request.form['valid']
+        
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -7,7 +7,6 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
@@ -47,13 +46,13 @@
         <p>這是 ML2017 final 中文QA 的簡易應用。<br> 使用者可以輸入一段文章，以及一個問句，此問句的答案必須是文章中的一個字串。
           <br> 輸入後模型將透過 word embedding, attenntion, pointer network 等機制預測出一個答案。
         </p>
-        <form id="form1" action="/ask", method='POST'>
+        <form id="form1" action="/ask" , method='POST'>
           <div class="form-group">
-            <h5 class="h5"> Passage: (請在此輸入一段文章，1000字以內):</h5>
+            <label> Passage: (請在此輸入一段文章，1000字以內):</label>
             <textarea id="context_input" class="form-control" cols="80%" rows="12" name="context" placeholder="2010年引進的廣州快速公交運輸系統，屬世界第二大快速公交系統，日常載客量可達100萬人次，高峰時期每小時單向客流高達26900人次，僅次於波哥大的快速交通系統，平均每10秒鐘就有一輛巴士，每輛巴士單向行駛350小時。包括橋樑在內的站台是世界最長的州快速公交運輸系統站台，長達260米。\n目前廣州市區的計程車和公共汽車主要使用液化石油氣作燃料，部分公共汽車更使用油電、氣電混合動力技術。2012年底開始投放液化天然氣燃料的公共汽車，2014年6月開始投放液化天然氣插電式混合動力公共汽車，以取代液化石油氣公共汽車。\n2007年1月16日，廣州市政府全面禁止在市區內駕駛摩托車。違反禁令的機動車將會予以沒收。廣州市交通局聲稱禁令的施行，使得交通擁擠問題和車禍大幅減少。\n廣州白雲國際機場位於白雲區與花都區交界，2004年8月5日正式投入運營，屬中國交通情況第二繁忙的機場。該機場取代了原先位於市中心的無法滿足日益增長航空需求的舊機場。目前機場有三條飛機跑道，成為國內第三個擁有三跑道的民航機場。比鄰近的香港國際機場第三跑道預計的2023年落成早8年。">2010年引進的廣州快速公交運輸系統，屬世界第二大快速公交系統，日常載客量可達100萬人次，高峰時期每小時單向客流高達26900人次，僅次於波哥大的快速交通系統，平均每10秒鐘就有一輛巴士，每輛巴士單向行駛350小時。包括橋樑在內的站台是世界最長的州快速公交運輸系統站台，長達260米。目前廣州市區的計程車和公共汽車主要使用液化石油氣作燃料，部分公共汽車更使用油電、氣電混合動力技術。2012年底開始投放液化天然氣燃料的公共汽車，2014年6月開始投放液化天然氣插電式混合動力公共汽車，以取代液化石油氣公共汽車。2007年1月16日，廣州市政府全面禁止在市區內駕駛摩托車。違反禁令的機動車將會予以沒收。廣州市交通局聲稱禁令的施行，使得交通擁擠問題和車禍大幅減少。廣州白雲國際機場位於白雲區與花都區交界，2004年8月5日正式投入運營，屬中國交通情況第二繁忙的機場。該機場取代了原先位於市中心的無法滿足日益增長航空需求的舊機場。目前機場有三條飛機跑道，成為國內第三個擁有三跑道的民航機場。比鄰近的香港國際機場第三跑道預計的2023年落成早8年。</textarea>
           </div>
           <div class="form-group">
-            <h5 class="h5"> Question: (請在此輸入一個問句，答案需為文章中的一個字串):</h5>
+            <label> Question: (請在此輸入一個問句，答案需為文章中的一個字串):</label>
             <textarea id="question_input" class="form-control" cols="80%" rows="3" name="question" placeholder="廣州白雲國際機場在完成第三條跑道的後八年哪一座機場也會有第三跑道？">廣州白雲國際機場在完成第三條跑道的後八年哪一座機場也會有第三跑道？</textarea>
           </div>
           <div class="form-group">
@@ -66,7 +65,7 @@
     </div>
     <div class="col-sm-6 no-float block-answer">
       <div class="pane__thumb"></div>
-      <div id="answer_panel_placeholder" class="placeholder">
+      <div id="answer_panel_placeholder" class="placeholder  d-none">
         <div class="placeholder__content">
           <div class="placeholder__empty">
             <div style="font-size:3em; color:Silver">
@@ -76,7 +75,7 @@
           <p>輸入文章與問題並執行檢視結果</p>
         </div>
       </div>
-      <div id="answer_panel" class="model__content d-none">
+      <div id="answer_panel" class="model__content">
         <div class="form__field">
           <label>Question</label>
           <div id="answer_question" class="model__content__summary">How many?</div>
@@ -91,6 +90,19 @@
             <span id="answer_text_before">A reusable launch system (RLS, or reusable launch vehicle, RLV) is a launch system which is capable of launching a payload into space more than once. This contrasts with expendable launch systems, where each launch vehicle is launched once and then discarded. No completely reusable orbital launch system has ever been created. </span>
             <span id="answer_text" class="passage__answer">Two</span>
             <span id="answer_text_after"> partially reusable launch systems were developed, the Space Shuttle and Falcon 9. The Space Shuttle was partially reusable: the orbiter (which included the Space Shuttle main engines and the Orbital Maneuvering System engines), and the two solid rocket boosters were reused after several months of refitting work for each launch. The external tank was discarded after each flight.</span>
+          </div>
+        </div>
+        <div class="form__field">
+          <div style="font-size:3em; color:Silver">
+            <button id="feedback_1" class="btn btn-outline-primary btn-lg" type="button">
+              <i class="far fa-thumbs-up"></i> 完全正確!
+            </button>
+            <button id="feedback_2" class="btn btn-outline-primary btn-lg" type="button">
+              <i class="far fa-hand-lizard"></i> 有點接近..
+            </button>
+            <button id="feedback_3" class="btn btn-outline-primary btn-lg" type="button">
+              <i class="far fa-thumbs-down"></i> 完全不對!
+            </button>
           </div>
         </div>
       </div>

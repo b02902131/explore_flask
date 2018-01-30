@@ -10,6 +10,32 @@ function onClickSubmit(){
   predict(context, question);
 }
 
+// start ### deal with feeback buttons
+var feedback_btn_id_list = ["feedback_1", "feedback_2", "feedback_3"];
+function onClickFeedBack(){
+  // console.log("onClickFeedBack", this.id);
+  for (var i =0; i<feedback_btn_id_list.length; i++){
+    // console.log("id", feedback_btn_id_list[i]);
+    e = document.getElementById( feedback_btn_id_list[i]);
+    if (feedback_btn_id_list[i] == this.id){
+        e.removeClass("btn-outline-primary");
+        e.addClass("btn-primary");
+        // # __TODO__ send msg to db for the valid
+    }
+    else{
+      e.removeClass("btn-primary");
+      e.addClass("btn-outline-primary");
+    }
+  }
+}
+
+for (var i =0; i<feedback_btn_id_list.length; i++){
+  // console.log("id", feedback_btn_id_list[i]);
+  document.getElementById( feedback_btn_id_list[i]).onclick = onClickFeedBack;
+}
+
+// end ### deal with feeback button
+
 $(document).ready(function() {
   console.log($.ajax);
 });
@@ -59,7 +85,7 @@ function showAnswer(context, question, start_idx, end_idx){
 }
 
 HTMLElement.prototype.addClass = function(add){
-  console.log("add class function extended");
+  // console.log("add class function extended");
   var curClassName = this.className;
   if (curClassName.includes(add) == false){
     this.className = curClassName + " " + add;
@@ -69,7 +95,7 @@ HTMLElement.prototype.addClass = function(add){
 // a way to bake this functionality right into all DOM elements:
 // https://stackoverflow.com/questions/2155737/remove-css-class-from-element-with-javascript-no-jquery
 HTMLElement.prototype.removeClass = function(remove) {
-  console.log("remove class function extended");
+  // console.log("remove class function extended");
   var newClassName = "";
   var i;
   var classes = this.className.split(" ");

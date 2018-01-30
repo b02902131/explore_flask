@@ -104,13 +104,15 @@
   margin-top: 2.5em
 }
 
-.form__field label {
+.form__field label,
+form label {
   display: block;
   font-weight: 600;
   font-size: 1.125em
 }
 
-.form__field label+* {
+.form__field label+*,
+form label+*{
   margin-top: 1.25em
 }
 
