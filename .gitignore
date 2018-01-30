@@ -1,1 +1,6 @@
 venv
+
+#python backup
+*.pyc
+__pycache__
+
