@@ -1,23 +1,83 @@
-
-
 <!DOCTYPE html>
+
 <html>
-<body>
+
+<head>
   <title>Context QA Application!</title>
-    <h1>Context QA Application!</h1>
-    <p>這是 ML2017 final 中文QA 的簡易應用 <p>
-  <form action="/ask" method="post">
-    Context: (請在此輸入一段文章，1000字以內)<br>
-    <textarea cols="80%" rows="8" name="context" placeholder="2010年引進的廣州快速公交運輸系統，屬世界第二大快速公交系統，日常載客量可達100萬人次，高峰時期每小時單向客流高達26900人次，僅次於波哥大的快速交通系統，平均每10秒鐘就有一輛巴士，每輛巴士單向行駛350小時。包括橋樑在內的站台是世界最長的州快速公交運輸系統站台，長達260米。\n目前廣州市區的計程車和公共汽車主要使用液化石油氣作燃料，部分公共汽車更使用油電、氣電混合動力技術。2012年底開始投放液化天然氣燃料的公共汽車，2014年6月開始投放液化天然氣插電式混合動力公共汽車，以取代液化石油氣公共汽車。\n2007年1月16日，廣州市政府全面禁止在市區內駕駛摩托車。違反禁令的機動車將會予以沒收。廣州市交通局聲稱禁令的施行，使得交通擁擠問題和車禍大幅減少。\n廣州白雲國際機場位於白雲區與花都區交界，2004年8月5日正式投入運營，屬中國交通情況第二繁忙的機場。該機場取代了原先位於市中心的無法滿足日益增長航空需求的舊機場。目前機場有三條飛機跑道，成為國內第三個擁有三跑道的民航機場。比鄰近的香港國際機場第三跑道預計的2023年落成早8年。">  2010年引進的廣州快速公交運輸系統，屬世界第二大快速公交系統，日常載客量可達100萬人次，高峰時期每小時單向客流高達26900人次，僅次於波哥大的快速交通系統，平均每10秒鐘就有一輛巴士，每輛巴士單向行駛350小時。包括橋樑在內的站台是世界最長的州快速公交運輸系統站台，長達260米。目前廣州市區的計程車和公共汽車主要使用液化石油氣作燃料，部分公共汽車更使用油電、氣電混合動力技術。2012年底開始投放液化天然氣燃料的公共汽車，2014年6月開始投放液化天然氣插電式混合動力公共汽車，以取代液化石油氣公共汽車。2007年1月16日，廣州市政府全面禁止在市區內駕駛摩托車。違反禁令的機動車將會予以沒收。廣州市交通局聲稱禁令的施行，使得交通擁擠問題和車禍大幅減少。廣州白雲國際機場位於白雲區與花都區交界，2004年8月5日正式投入運營，屬中國交通情況第二繁忙的機場。該機場取代了原先位於市中心的無法滿足日益增長航空需求的舊機場。目前機場有三條飛機跑道，成為國內第三個擁有三跑道的民航機場。比鄰近的香港國際機場第三跑道預計的2023年落成早8年。</textarea>
-    <br>
-    Question: (請在此輸入一個問句，答案需為文章中的一個字串)<br>
-    <textarea cols="80%" rows="2" name="question" placeholder="廣州白雲國際機場在完成第三條跑道的後八年哪一座機場也會有第三跑道？">廣州白雲國際機場在完成第三條跑道的後八年哪一座機場也會有第三跑道？</textarea>
-    <br><br>
-    <input type="submit" value="傳送">
-  </form>
 
-  <p>當您按下傳送後，我們的模型會輸入您提供的文章與問句，在思考後傳回一個他覺得正確的答案。<p>
-  <p>由於他現在還很笨 (在 Kaggle 上僅獲得 0.6 的 f1 socre) 所以請別太苛責他，多多包涵。</p>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+
+  <!--  Font Awesome -->
+  <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
+</head>
+
+<body>
+  <div class="header">
+    <nav class="navbar navbar-inverse bg-inverse navbar-toggleable-md">
+      <div class="container">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleContainer" aria-controls="navbarsExampleContainer" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#">Chinese QA 中文文章問答</a>
+        <div class="collapse navbar-collapse" id="navbarsExampleContainer">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">Disabled</a>
+            </li>>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div class="row">
+    <div class="col-sm-6 no-float block-context-question">
+      <div class="container">
+        <h1 class="h1">Context QA Application!</h1>
+        <p>這是 ML2017 final 中文QA 的簡易應用</p>
+        <form action="/ask" method="post">
+          <div class="form-group">
+            <br>
+            <h5 class="h5"> Context: (請在此輸入一段文章，1000字以內):</h5>
+            <textarea class="form-control" cols="80%" rows="8" name="context" placeholder="2010年引進的廣州快速公交運輸系統，屬世界第二大快速公交系統，日常載客量可達100萬人次，高峰時期每小時單向客流高達26900人次，僅次於波哥大的快速交通系統，平均每10秒鐘就有一輛巴士，每輛巴士單向行駛350小時。包括橋樑在內的站台是世界最長的州快速公交運輸系統站台，長達260米。\n目前廣州市區的計程車和公共汽車主要使用液化石油氣作燃料，部分公共汽車更使用油電、氣電混合動力技術。2012年底開始投放液化天然氣燃料的公共汽車，2014年6月開始投放液化天然氣插電式混合動力公共汽車，以取代液化石油氣公共汽車。\n2007年1月16日，廣州市政府全面禁止在市區內駕駛摩托車。違反禁令的機動車將會予以沒收。廣州市交通局聲稱禁令的施行，使得交通擁擠問題和車禍大幅減少。\n廣州白雲國際機場位於白雲區與花都區交界，2004年8月5日正式投入運營，屬中國交通情況第二繁忙的機場。該機場取代了原先位於市中心的無法滿足日益增長航空需求的舊機場。目前機場有三條飛機跑道，成為國內第三個擁有三跑道的民航機場。比鄰近的香港國際機場第三跑道預計的2023年落成早8年。">  2010年引進的廣州快速公交運輸系統，屬世界第二大快速公交系統，日常載客量可達100萬人次，高峰時期每小時單向客流高達26900人次，僅次於波哥大的快速交通系統，平均每10秒鐘就有一輛巴士，每輛巴士單向行駛350小時。包括橋樑在內的站台是世界最長的州快速公交運輸系統站台，長達260米。目前廣州市區的計程車和公共汽車主要使用液化石油氣作燃料，部分公共汽車更使用油電、氣電混合動力技術。2012年底開始投放液化天然氣燃料的公共汽車，2014年6月開始投放液化天然氣插電式混合動力公共汽車，以取代液化石油氣公共汽車。2007年1月16日，廣州市政府全面禁止在市區內駕駛摩托車。違反禁令的機動車將會予以沒收。廣州市交通局聲稱禁令的施行，使得交通擁擠問題和車禍大幅減少。廣州白雲國際機場位於白雲區與花都區交界，2004年8月5日正式投入運營，屬中國交通情況第二繁忙的機場。該機場取代了原先位於市中心的無法滿足日益增長航空需求的舊機場。目前機場有三條飛機跑道，成為國內第三個擁有三跑道的民航機場。比鄰近的香港國際機場第三跑道預計的2023年落成早8年。</textarea>
+          </div>
+          <div class="form-group">
+            <br>
+            <h5 class="h5"> Question: (請在此輸入一個問句，答案需為文章中的一個字串):</h5>
+            <textarea class="form-control" cols="80%" rows="2" name="question" placeholder="廣州白雲國際機場在完成第三條跑道的後八年哪一座機場也會有第三跑道？">廣州白雲國際機場在完成第三條跑道的後八年哪一座機場也會有第三跑道？</textarea>
+          </div>
+          <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="執行 »">
+            <p>當您按下執行後，我們的模型會輸入您提供的文章與問句，在思考後傳回一個他覺得正確的答案。由於他現在還很笨 (在 Kaggle 上僅獲得 0.6 的 f1 socre) 所以請別太苛責他，多多包涵。</p>
+
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-sm-6 no-float block-answer">
+      <div class="container placeholder">
+        <div class="placeholder__content">
+          <div class="placeholder__empty">
+            <div style="font-size:3em; color:gray">
+              <i class="fas fa-eye"></i>
+            </div>
+          </div>
+          <p>輸入文章與問題並執行檢視結果</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
+
 </html>
