@@ -1,6 +1,8 @@
 import os
 import csv
 import sqlite3
+import json
+
 from flask import Flask, g, url_for
 from flask import request
 from flask import render_template
@@ -68,7 +70,8 @@ def ask():
         db.execute('INSERT INTO query_histories(context, question, answer_start, answer_end) VALUES (?,?,?,?)',
         (context, question, int(Y_str[0]), int(Y_end[0])))
 
-    return 'Answer is: %s' % answers[0]
+    # return 'Answer is: %s' % answers[0]
+    return json.dumps({'start_idx':int(Y_str[0]), 'end_idx':int(Y_end[0])})
 
 
 if __name__ == '__main__':
