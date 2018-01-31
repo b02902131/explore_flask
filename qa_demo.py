@@ -78,7 +78,7 @@ def valid():
     if request.method == 'POST':
         question_id = request.form['question_id']
         valid = request.form['valid']
-        
+
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
