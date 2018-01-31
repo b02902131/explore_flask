@@ -9,9 +9,20 @@ from flask import render_template
 
 from qa_model.qa_api import myQAModel
 
-qaModel = myQAModel()
+class QaModel():
+    def __init__(self):
+        self.model = myQAModel()
+    def infer(self, contexts, questions, getIndex=True):
+        Y_str, Y_end = self.model.infer(contexts, questions, getIndex=True)
+        return Y_str, Y_end
 
-app = Flask(__name__)
+qaModel = QaModel()
+
+def create_app():
+    app = Flask(__name__)
+    return app
+
+app = create_app()
 
 # to avoid cache problem
 @app.context_processor
