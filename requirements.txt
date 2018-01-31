@@ -3,3 +3,4 @@ flask
 keras
 numpy
 pandas
+jieba
