@@ -6,6 +6,7 @@ import json
 from flask import Flask, g, url_for
 from flask import request
 from flask import render_template
+from flask_sqlalchemy import SQLAlchemy
 
 from qa_model.qa_api import myQAModel
 
@@ -23,6 +24,9 @@ def create_app():
     return app
 
 app = create_app()
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+db = SQLAlchemy(app)
+
 
 # to avoid cache problem
 @app.context_processor

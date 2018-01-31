@@ -7,3 +7,8 @@ pandas
 jieba
 gensim
 h5py
+alembic
+Flask-Migrate
+Flask-Script
+Flask-SQLAlchemy
+psycopg2
