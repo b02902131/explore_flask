@@ -6,3 +6,4 @@ numpy
 pandas
 jieba
 gensim
+h5py
