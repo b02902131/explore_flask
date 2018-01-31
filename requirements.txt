@@ -1,6 +1,7 @@
 gunicorn
 flask
 keras
+tensorflow
 numpy
 pandas
 jieba
