@@ -1,1 +1,1 @@
-web: python qa_demo.py --log-file=-
+web: gunicorn -w 1 qa_demo:app --log-file=-
